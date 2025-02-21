@@ -58,6 +58,7 @@ public class Flappy : MonoBehaviour
         if(mode == "start") 
         {
             StartObj.SetActive(false);
+            Points.SetActive(true);
         }
         else 
         {
