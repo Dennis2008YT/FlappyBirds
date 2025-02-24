@@ -17,6 +17,7 @@ public class MuoviTubi : MonoBehaviour
             if(transform.position.x <= 0f && !counted)
             {
                 Flappy.points++;
+                StartCoroutine(GameObject.FindGameObjectWithTag("Player").GetComponent<Flappy>().playPointSound());
                 counted = true;
             }
         }

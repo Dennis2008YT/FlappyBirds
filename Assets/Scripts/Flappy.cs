@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 using TMPro;
 
 public class Flappy : MonoBehaviour
@@ -7,7 +8,7 @@ public class Flappy : MonoBehaviour
     private float jumpForce = 5f;
     [SerializeField] private InputActionAsset Input;
     [SerializeField] private GameObject GameOverObj, StartObj, PointsObj;
-    [SerializeField] private AudioSource flappyAudioSource;
+    [SerializeField] private AudioSource jumpAudioSource, gameOverAudioSource, pointAudioSource;
     [SerializeField] private AudioClip jumpSound, gameOverSound, pointSound;
     public static bool playing = false;
     public static int points = 0;
@@ -23,8 +24,9 @@ public class Flappy : MonoBehaviour
         jump.canceled += enableJumping;
         startPos = transform.position;
         gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
-        flappyAudioSource = gameObject.GetComponent<AudioSource>();
-        flappyAudioSource.clip = jumpSound;
+        jumpAudioSource.clip = jumpSound;
+        gameOverAudioSource.clip = gameOverSound;
+        pointAudioSource.clip = pointSound;
     }
 
     void Update()
@@ -37,9 +39,27 @@ public class Flappy : MonoBehaviour
         if(canJump == true && playing)
         {
             gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
-            flappyAudioSource.Play();
+            StartCoroutine(playJumpSound());
             canJump = false;
         }
+    }
+
+    public IEnumerator playJumpSound()
+    {
+        jumpAudioSource.Play();
+        yield return null;
+    }
+
+    public IEnumerator playPointSound()
+    {
+        pointAudioSource.Play();
+        yield return null;
+    }
+
+    public IEnumerator playGameOverSound()
+    {
+        gameOverAudioSource.Play();
+        yield return null;
     }
 
     void enableJumping(InputAction.CallbackContext obj)
@@ -50,6 +70,7 @@ public class Flappy : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         playing = false;
+        StartCoroutine(playGameOverSound());
         GameOverObj.SetActive(true);
     }
 
