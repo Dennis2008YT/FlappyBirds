@@ -10,11 +10,11 @@ public class MuoviTubi : MonoBehaviour
         if(Flappy.playing)
         {
             transform.position = new Vector2(transform.position.x - (speed * Time.deltaTime), transform.position.y);
-            if(transform.position.x <= -3.5f)
+            if(transform.position.x <= -8f)
             {
                 Destroy(gameObject);
             }
-            if(transform.position.x <= 0f && !counted)
+            if(transform.position.x <= -1f && !counted)
             {
                 Flappy.points++;
                 StartCoroutine(GameObject.FindGameObjectWithTag("Player").GetComponent<Flappy>().playPointSound());

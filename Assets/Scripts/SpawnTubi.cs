@@ -13,7 +13,7 @@ public class SpawnTubi : MonoBehaviour
             if(spawnTimer >= timer)
             {
                 spawnTimer = 0f;
-                Instantiate(Tubi, new Vector2(3.6f, Random.Range(-1f, 2.5f)), Quaternion.identity);
+                Instantiate(Tubi, new Vector2(8f, Random.Range(-1f, 2.5f)), Quaternion.identity);
             }
         }
     }

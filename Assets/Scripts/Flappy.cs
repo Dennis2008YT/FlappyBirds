@@ -5,7 +5,7 @@ using TMPro;
 
 public class Flappy : MonoBehaviour
 {
-    private float jumpForce = 5f;
+    private float jumpForce = 4f;
     [SerializeField] private InputActionAsset Input;
     [SerializeField] private GameObject GameOverObj, StartObj, PointsObj;
     [SerializeField] private AudioSource jumpAudioSource, gameOverAudioSource, pointAudioSource;
@@ -89,6 +89,7 @@ public class Flappy : MonoBehaviour
         }
         gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
         transform.position = startPos;
+        GetComponent<Rigidbody2D>().linearVelocity = new Vector3(0f, 0f, 0f);
         playing = true;
     }
 }
